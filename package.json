@@ -1,20 +1,33 @@
 {
-  "name": "dadjoke",
+  "name": "peony",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "keywords": [],
-  "author": "",
   "scripts": {
-    "dev": "pm2-dev server.js",
-    "start": "pm2 start server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shookster/peony.git"
+  },
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shookster/peony/issues"
+  },
+  "homepage": "https://github.com/shookster/peony#readme",
   "dependencies": {
-    "axios": "^0.26.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "morgan": "^1.10.0",
-    "pm2": "^5.2.0",
-    "pug": "^3.0.2"
+    "express-handlebars": "^5.1.0",
+    "express-session": "^1.17.1",
+    "mysql2": "^2.2.5",
+    "nodemon": "^2.0.6",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.3.5"
   }
 }

@@ -1,82 +1,48 @@
-const express = require("express");
-const path = require("path");
-const axios = require("axios");
-const morgan = require("morgan");
+require("dotenv").config();
+var apiRoutes= require("./routes/apiRoutes");
+var htmlRoutes = require("./routes/htmlRoutes");
+var express = require("express");
+var session = require("express-session");
+var bodyParser = require("body-parser");
+var exphbs = require("express-handlebars");
+var passport = require("passport")
 
-const app = express();
+var db = require("./models");
 
-const morganMiddleware = morgan(
-  ":method :url :status :res[content-length] - :response-time ms",
-  {
-    stream: {
-      write: (message) => console.log(message.trim()),
-    },
-  }
+var app = express();
+var PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
+
+// Handlebars
+app.engine(
+  "handlebars",
+  exphbs({
+    defaultLayout: "main"
+  })
 );
+app.set("view engine", "handlebars");
 
-app.use(morganMiddleware);
+// Routes
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use("/api", apiRoutes);
+app.use("/", htmlRoutes);
 
-app.use(express.static(path.join(__dirname, "public")));
+var syncOptions = { force: false };
 
-app.set("view engine", "pug");
-
-async function getRandomJoke() {
-  const response = await axios.get("https://icanhazdadjoke.com", {
-    headers: {
-      Accept: "application/json",
-      "User-Agent":
-        "Random Dad Jokes (https://github.com/betterstack-community/random-dad-jokes)",
-    },
-  });
-
-  return response.data;
+// If running a test, set syncOptions.force to true
+// clearing the `testdb`
+if (process.env.NODE_ENV === "test") {
+  syncOptions.force = true;
 }
 
-app.get("/", async (req, res, next) => {
-  try {
-    const response = await getRandomJoke();
-
-    res.render("home", {
-      title: "Random Jokes - By Angger",
-      dadJoke: response,
+db.sequelize.sync().then(function() {
+    app.listen(PORT, function() {
+      console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
     });
-  } catch (err) {
-    next(err);
-  }
-});
-
-app.get("/joke", async (req, res, next) => {
-  try {
-    const response = await getRandomJoke();
-    res.json(response);
-  } catch (err) {
-    next(err);
-  }
-});
-
-app.get("/crashme", (req, res) => {
-  res.send("Crashing server!");
-  process.exit(1);
-});
-
-app.get("/graceful-shutdown", (req, res) => {
-  res.send("Graceful shutdown!");
-  cleanupAndExit();
-});
-
-app.use(function (err, req, res, next) {
-  console.error(err);
-  res.set("Content-Type", "text/html");
-  res.status(500).send("<h1>Internal Server Error</h1>");
-});
-
-const server = app.listen(process.env.PORT || 3000, () => {
-  console.log(`dadjokes server started on port: ${server.address().port}`);
-});
-
-function cleanupAndExit() {
-  server.close(() => {
-    console.log("dadjokes server closed");
-    process.exit(0);
   });
-}

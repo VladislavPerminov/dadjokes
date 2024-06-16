@@ -1,0 +1,61 @@
+<nav class="navbar navbar-light" style="background-color: rgb(184, 242, 184);">
+    <a class="navbar-brand" href="/home">Dad Jokes!</a>
+    <a class="navbar-brand" href="/">Logout</a>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4 list-container">
+            <div class="card">
+                <ul class="list-group">
+                    {{#each jokes}}
+                    <button class="joke-item" type="button" data-jokeid="{{this.dataValues.id}}"
+                        data-jokename="{{this.dataValues.name}}" data-jokepunchline="{{this.dataValues.punchline}}"
+                        data-jokerating="{{this.dataValues.rating}}">
+                        <b>Joke: </b>{{this.dataValues.name}}
+                        <br>
+                        <b>Genre: </b>{{this.dataValues.genre}}
+                        <br>
+                        <b>Rating: </b>{{this.dataValues.rating}}
+                    </button>
+                    <br>
+                    {{/each}}
+
+                </ul>
+            </div>
+        </div>
+        <div class="col">
+
+            <div class="jumbotron">
+                <h3 id="joke" class="joke">
+                </h3>
+                <br>
+                <button type="button" id="punchlineBtn" class="btn btn-dark punchlineBtn">What's the
+                    punchline?</button>
+                <hr class="my-4">
+                <h3 style="display: none;" id="punchline" class="punchline">
+                </h3>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="card current-ratings">
+                        <h4 id="current-ratings"></h4>
+                    </div>
+                    <form id="your-rating">
+                        <select class="custom-select form-control" aria-label="Example select with button addon"
+                            id="choice">
+                            <option selected>Rate this Joke!</option>
+                            <option value="1">It's Alright</option>
+                            <option value="2">Getting Better...</option>
+                            <option value="3">Genuinely Funny</option>
+                            <option value="4">Hahahaha</option>
+                            <option value="5">I Actually Laughed!</option>
+                        </select>
+                        <button class="btn btn-dark ratingBtn" id={{this.dataValues.id}} type="submit"
+                            data-jokeid="{{this.dataValues.id}}">Submit</button>
+                    </form>
+                    <h4>Think you can do better?</h4>
+                    <a type="button" class="btn btn-dark" href="/submitjoke">Add a Joke!</a>
+                </div>
+            </div>
+        </div>
+    </div>
