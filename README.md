@@ -1,6 +1,6 @@
 # Application DadJokes
 
-Cette application React simple affiche des blagues de papa.
+Cette application simple affiche des blagues de papa.
 
 
 ## Installation
