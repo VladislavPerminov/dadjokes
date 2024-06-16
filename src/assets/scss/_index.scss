@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
+$color-main: #779ECB;
+$color-main-a1: #3E5D80;
+$color-main-a2: #B0D5FF;
+$color-main-a3: #806332;
+$color-main-a4: #CCAE78;
+$color-border: $color-main-a1;
+
+// BOOTSTRAP OVERRIDE
+.container {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+
+@media (max-width: 770px) {
+    section.container-custom {
+        max-width: none !important;
+    }
+}
+
+body {
+    font-family: "Rubik", sans-serif;
+    background-image: linear-gradient(
+        135deg,
+        $color-main-a3 0%,
+        $color-main-a3 50%,
+        $color-main-a4 50%,
+        $color-main-a4 100%
+    )
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+svg.loader {
+    position: relative;
+    bottom: 30%;
+    transform: scale(0.25);
+}
+
+@import './parent.scss';
+@import './joke.scss';
+@import './jokeList.scss';

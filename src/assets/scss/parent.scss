@@ -1,0 +1,17 @@
+article.app-parent-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1000px) {
+    article.app-parent-container {
+        height: inherit;
+    }
+
+    div.app-title-container,
+    div.app-jokes-container {
+        height: 100vh !important;
+    }
+}

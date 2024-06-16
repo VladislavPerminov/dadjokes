@@ -1,10 +1,24 @@
-# Dad Jokes! 
+# Application DadJokes
 
 Cette application simple affiche des blagues de papa.
 
-## Fonctionnalités
 
-- Affiche une blague de papa aléatoire à chaque requête.
-- Interface utilisateur minimaliste.
-- Facile à déployer sur un serveur web.
+## Installation
+
+1. **Cloner le dépôt :**
+
+   git clone https://github.com/VladislavPerminov/dadjokes.git
+
+2. **Installer les dépendances :**
+
+    npm install
+
+3. **Exécute le script de build défini dans le fichier package.json :**
+
+    npm run build
+
+4. **Exécute les tests unitaires du projet :**
+
+    npm test 
+
 
