@@ -2,7 +2,9 @@ pipeline {
     agent {
         label 'agent_node'
     }
-    
+     tools {
+        terraform 'tf1.6'
+    }
     environment {
         PAT_DOCKERHUB = credentials('PAT_Dockerhub')
     }
@@ -34,7 +36,7 @@ pipeline {
                         -Dsonar.projectKey=dadjokes \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://172.22.0.5:9000 \
-                        -Dsonar.token=sqp_cc6cd651f8d39aa3960581b866dd3ca80e4bb6be 
+                        -Dsonar.token=sqp_9b3e7598384ea592617b184e07797028a65bc6ac 
                         '''
                 }
             }
@@ -56,7 +58,7 @@ pipeline {
             }
         }
     }
-    stage('Terraform Plan') {
+    stage('Terraform Init') {
             steps {
                 dir('Terraform') {
                     sh 'terraform init'
